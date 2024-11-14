@@ -20,4 +20,32 @@ class StringCalculator(val inputExpression: String?) {
             require(numberRegex.matches(inputExpressionSplit[index]))
         }
     }
+
+    fun addition(
+        double1: Double,
+        double2: Double,
+    ): Double {
+        return double1 + double2
+    }
+
+    fun subtraction(
+        double1: Double,
+        double2: Double,
+    ): Double {
+        return double1 - double2
+    }
+
+    fun multiplication(
+        double1: Double,
+        double2: Double,
+    ): Double {
+        return double1 * double2
+    }
+
+    fun division(
+        double1: Double,
+        double2: Double,
+    ): Double {
+        return double1 / double2
+    }
 }
