@@ -49,4 +49,21 @@ class StringCalculatorTest {
         assertThat(stringCalculator.division(1.0, 1.0)).isEqualTo(1.0)
         assertThat(stringCalculator.division(5.0, 2.0)).isEqualTo(2.5)
     }
+
+    @Test
+    fun `문자열 계산 결과 검증`() {
+        val stringCalculator: StringCalculator = StringCalculator("22 / 11 + 8 / 2 * 5 - 10")
+        assertThat(stringCalculator.calculateResult()).isEqualTo(15.0)
+    }
+
+    @Test
+    fun `사칙 연산에 따른 계산 함수 검증`() {
+        val stringCalculator: StringCalculator = StringCalculator("22 / 11")
+        assertThat(stringCalculator.checkOperationCalculate("+", 1.0, 1.0)).isEqualTo(2.0)
+        assertThat(stringCalculator.checkOperationCalculate("-", 1.0, 1.0)).isEqualTo(0.0)
+        assertThat(stringCalculator.checkOperationCalculate("*", 2.0, 2.0)).isEqualTo(4.0)
+        assertThat(stringCalculator.checkOperationCalculate("/", 9.0, 3.0)).isEqualTo(3.0)
+        assertThrows<IllegalArgumentException> { stringCalculator.checkOperationCalculate("", 9.0, 3.0) }
+        assertThrows<IllegalArgumentException> { stringCalculator.checkOperationCalculate("1", 9.0, 3.0) }
+    }
 }
