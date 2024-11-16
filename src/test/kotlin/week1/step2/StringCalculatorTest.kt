@@ -8,6 +8,8 @@ import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import week1.step2.StringCalculator.Companion.INPUT_CALCULATION_EXPRESSION_ERROR_MESSAGE
+import week1.step2.StringCalculator.Companion.NULL_OR_BLANK_ERROR_MESSAGE
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)

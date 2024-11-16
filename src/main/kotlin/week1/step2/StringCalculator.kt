@@ -1,14 +1,15 @@
 package week1.step2
 
-const val OPERATION_REGEX_PATTERN: String = "^[^+\\-*/]*[+\\-*/][^+\\-*/]*$"
-const val NUMBER_REGEX_PATTERN: String = "^\\d+$"
-
-const val NULL_OR_BLANK_ERROR_MESSAGE: String = "입력된 계산식이 없습니다"
-const val INPUT_CALCULATION_EXPRESSION_ERROR_MESSAGE: String = "입력한 계산식이 올바르지 않습니다"
-
 class StringCalculator(val inputExpression: String?) {
     init {
         validationInputExpression()
+    }
+
+    companion object {
+        const val NULL_OR_BLANK_ERROR_MESSAGE: String = "입력된 계산식이 없습니다"
+        const val INPUT_CALCULATION_EXPRESSION_ERROR_MESSAGE: String = "입력한 계산식이 올바르지 않습니다"
+        const val OPERATION_REGEX_PATTERN: String = "^[^+\\-*/]*[+\\-*/][^+\\-*/]*$"
+        const val NUMBER_REGEX_PATTERN: String = "^\\d+$"
     }
 
     private fun validationInputExpression() {

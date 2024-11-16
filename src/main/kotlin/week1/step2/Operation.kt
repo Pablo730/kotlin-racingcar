@@ -5,11 +5,4 @@ enum class Operation(val operationSymbol: String) {
     SUBTRACTION("-"),
     MULTIPLICATION("*"),
     DIVISION("/"),
-    ;
-
-    companion object {
-        fun fromOperationSymbol(operationSymbol: String): Operation? {
-            return entries.find { it.operationSymbol == operationSymbol }
-        }
-    }
 }
