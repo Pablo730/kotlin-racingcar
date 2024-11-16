@@ -4,13 +4,18 @@ class InputView {
     var numberOfCars: Int = 0
     var numberOfAttempts: Int = 0
 
-    fun inputNumberOfCars() {
+    private fun inputNumberOfCars() {
         println("자동차 대수는 몇 대인가요? ")
         numberOfCars = readLine()!!.toInt()
     }
 
-    fun inputAttemptCount() {
+    private fun inputAttemptCount() {
         println("시도할 횟수는 몇 회인가요? ")
         numberOfAttempts = readLine()!!.toInt()
+    }
+
+    fun view() {
+        inputNumberOfCars()
+        inputAttemptCount()
     }
 }
