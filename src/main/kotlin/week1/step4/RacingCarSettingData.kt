@@ -1,3 +1,3 @@
-package week1.step3
+package week1.step4
 
-data class RacingCarSettingData(val inputNumberOfCars: Int, val inputAttemptCount: Int)
+data class RacingCarSettingData(val cars: List<Car>, val inputAttemptCount: Int)
