@@ -1,6 +1,6 @@
-package week1.step3
+package week1.step4
 
-data class RacingResult(val result: MutableList<MutableList<Int>>) {
+data class RacingResult(val result: MutableList<MutableList<Car>>) {
     fun getRacingAttemptCount(): Int {
         return result.size
     }
@@ -9,7 +9,7 @@ data class RacingResult(val result: MutableList<MutableList<Int>>) {
         return result[0].size
     }
 
-    fun getRacingFinalResult(): MutableList<Int> {
+    fun getRacingFinalResult(): MutableList<Car> {
         return result.last()
     }
 }

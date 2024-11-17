@@ -1,8 +1,7 @@
-package week1.step3
+package week1.step4
 
 class RacingCar(
-    private val numberOfCars: Int,
-    private val numberOfAttempts: Int,
+    private val racingCarSettingData: RacingCarSettingData,
     private val carForwardRandomProvider: () -> Int,
 ) {
     companion object {
@@ -23,17 +22,18 @@ class RacingCar(
         }
     }
 
-    private fun racingAttempt(previousRacing: MutableList<Int>?): MutableList<Int> {
-        val nextRacing: MutableList<Int> = mutableListOf()
-        for (carIndex in 0 until numberOfCars) {
-            nextRacing.add((previousRacing?.get(carIndex) ?: 0) + carForwardRandom())
+    private fun racingAttempt(previousRacing: List<Car>): MutableList<Car> {
+        val nextRacing: MutableList<Car> = mutableListOf()
+        for (carIndex in 0 until racingCarSettingData.cars.size) {
+            val indexCar: Car = previousRacing[carIndex]
+            nextRacing.add(Car(indexCar.carName, indexCar.position + carForwardRandom()))
         }
         return nextRacing
     }
 
     fun racingResult(): RacingResult {
-        racingAttempt.result.add(racingAttempt(null))
-        for (attemptCount in 0 until numberOfAttempts - 1) {
+        racingAttempt(racingCarSettingData.cars)
+        for (attemptCount in 0 until racingCarSettingData.cars.size - 1) {
             racingAttempt.result.add(racingAttempt(racingAttempt.result[attemptCount]))
         }
         return racingAttempt
