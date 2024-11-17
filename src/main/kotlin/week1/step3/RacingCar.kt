@@ -25,7 +25,7 @@ class RacingCar(
     }
 
     fun racingResult(): RacingResult {
-        racingAttempt.result.add(racingAttempt(listOf()))
+        racingAttempt.addRacingAttempt(racingAttempt(listOf()))
         for (attemptCount in 0 until racingCarSettingData.inputAttemptCount - 1) {
             racingAttempt.addRacingAttempt(racingAttempt(racingAttempt.result[attemptCount]))
         }
