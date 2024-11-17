@@ -12,4 +12,8 @@ data class RacingResult(val result: MutableList<MutableList<Int>>) {
     fun getRacingFinalResult(): MutableList<Int> {
         return result.last()
     }
+
+    fun addRacingAttempt(attemptRacingResult: MutableList<Int>) {
+        result.add(attemptRacingResult)
+    }
 }
