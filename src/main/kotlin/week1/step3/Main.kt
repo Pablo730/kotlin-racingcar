@@ -9,7 +9,7 @@ fun main() {
     val racingCarSettingData: RacingCarSettingData = inputView.view()
 
     val racingCar: RacingCar =
-        RacingCar(racingCarSettingData.inputNumberOfCars, racingCarSettingData.inputAttemptCount) {
+        RacingCar(racingCarSettingData = racingCarSettingData) {
             Random.nextInt(CAR_FROWARD_RANDOM_MIN, CAR_FROWARD_RANDOM_MAX)
         }
     val racingResult: RacingResult = racingCar.racingResult()
