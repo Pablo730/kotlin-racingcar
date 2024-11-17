@@ -6,6 +6,7 @@ import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
+import week1.step3.RacingCar.Companion.CAR_FROWARD_RANDOM_BASELINE
 import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -14,26 +15,32 @@ class RacingCarTest {
         return Stream.of(
             Arguments.of(3, 5),
             Arguments.of(8, 12),
-            Arguments.of(5, 7),
-            Arguments.of(4, 2),
-            Arguments.of(11, 3),
-            Arguments.of(2, 3),
         )
     }
 
     @ParameterizedTest
     @MethodSource("자동차 경주 대수, 횟수 제공")
-    fun `자동차 경주 대수 및 횟수에 따른 결과 검증`(
+    fun `랜덤 기준 값보다 낮은 값이 나온경우 차가 전진하는지 검증`(
         numberOfCars: Int,
         numberOfAttempts: Int,
     ) {
-        val racingAttempt: Array<Array<Int>> = RacingCar(numberOfCars, numberOfAttempts).racingResult()
-        assertEquals(racingAttempt.size, numberOfAttempts)
-        assertEquals(racingAttempt[0].size, numberOfCars)
-        for (attemptIndex in racingAttempt.indices) {
-            for (carIndex in racingAttempt[attemptIndex].indices) {
-                assertTrue(racingAttempt[attemptIndex][carIndex] in 0..numberOfAttempts)
-            }
-        }
+        val racingResult: RacingResult =
+            RacingCar(numberOfCars, numberOfAttempts) { CAR_FROWARD_RANDOM_BASELINE - 1 }.racingResult()
+        assertEquals(racingResult.result.size, numberOfAttempts)
+        assertEquals(racingResult.result[0].size, numberOfCars)
+        assertTrue(racingResult.result.all { it.all { move -> move == 0 } })
+    }
+
+    @ParameterizedTest
+    @MethodSource("자동차 경주 대수, 횟수 제공")
+    fun `랜덤 기준 값 이상의 값이 나온경우 모든 차가 전진하는지 검증`(
+        numberOfCars: Int,
+        numberOfAttempts: Int,
+    ) {
+        val racingResult: RacingResult =
+            RacingCar(numberOfCars, numberOfAttempts) { CAR_FROWARD_RANDOM_BASELINE }.racingResult()
+        assertEquals(racingResult.result.size, numberOfAttempts)
+        assertEquals(racingResult.result[0].size, numberOfCars)
+        assertTrue(racingResult.result.last().all { move -> move == numberOfAttempts })
     }
 }

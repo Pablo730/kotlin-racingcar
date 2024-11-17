@@ -15,7 +15,7 @@ class InputView {
         return inputAttemptCount.toInt()
     }
 
-    fun view(): Pair<Int, Int> {
-        return Pair(inputNumberOfCars(), inputAttemptCount())
+    fun view(): RacingCarSettingData {
+        return RacingCarSettingData(inputNumberOfCars(), inputAttemptCount())
     }
 }
