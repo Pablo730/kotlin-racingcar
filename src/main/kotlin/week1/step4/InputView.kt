@@ -1,25 +1,39 @@
 package week1.step4
 
+import week1.step4.Car.Companion.CAR_DEFAULT_POSITION
+import week1.step4.Car.Companion.CAR_FROWARD_RANDOM_MAX
+import week1.step4.Car.Companion.CAR_FROWARD_RANDOM_MIN
+import kotlin.random.Random
+
 class InputView {
-    private fun inputRacingCarNames(): List<Car> {
-        println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).")
-        val inputRacingCarNames: List<String>? = readlnOrNull()?.split(",")
+    fun view(): RacingCarSetting {
+        return RacingCarSetting(cars = inputCarNames(), inputAttemptCount = inputAttemptCount())
+    }
 
-        requireNotNull(inputRacingCarNames) { "경주할 자동차 이름이 올바르게 입력되지 않았습니다" }
-
-        return inputRacingCarNames.map { inputRacingCarName -> Car(inputRacingCarName, Car.CAR_POSITION_MIN_VALUE) }
+    private fun inputCarNames(): List<Car> {
+        println(INPUT_CAR_NAME_MESSAGE)
+        val inputCarNames: String? = readlnOrNull()
+        requireNotNull(inputCarNames) { INVALID_CAR_NAME_MESSAGE }
+        return inputCarNames.split(INPUT_CAR_NAME_DELIMITER).map {
+                inputCarName ->
+            Car(carName = inputCarName, position = CAR_DEFAULT_POSITION) {
+                Random.nextInt(CAR_FROWARD_RANDOM_MIN, CAR_FROWARD_RANDOM_MAX)
+            }
+        }
     }
 
     private fun inputAttemptCount(): Int {
-        println("시도할 횟수는 몇 회인가요? ")
-        val inputAttemptCount: Int? = readlnOrNull()?.toIntOrNull()
-
-        requireNotNull(inputAttemptCount) { "시도할 횟수가 올바르게 입력되지 않았습니다" }
-
+        println(INPUT_ATTEMPT_COUNT_MESSAGE)
+        val inputAttemptCount: Int? = readln().toIntOrNull()
+        requireNotNull(inputAttemptCount) { INVALID_ATTEMPT_COUNT_MESSAGE }
         return inputAttemptCount.toInt()
     }
 
-    fun view(): RacingCarSettingData {
-        return RacingCarSettingData(inputRacingCarNames(), inputAttemptCount())
+    companion object {
+        const val INPUT_CAR_NAME_MESSAGE: String = "경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분)."
+        const val INPUT_CAR_NAME_DELIMITER: String = ","
+        const val INVALID_CAR_NAME_MESSAGE: String = "경주할 자동차 이름이 올바르게 입력되지 않았습니다"
+        const val INPUT_ATTEMPT_COUNT_MESSAGE: String = "시도할 횟수는 몇 회인가요?"
+        const val INVALID_ATTEMPT_COUNT_MESSAGE: String = "시도할 횟수가 올바르게 입력되지 않았습니다"
     }
 }

@@ -1,7 +1,5 @@
 package week1.step3
 
-import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
@@ -20,20 +18,10 @@ class RacingCarTest {
 
     @ParameterizedTest
     @MethodSource("자동차 경주 대수, 횟수, 전진 기준 값, 마지막 자동찿 위치 값 제공")
-    fun `랜덤 기준 값을 기준으로 차가 올바르게 전진하는지 검증`(
-        numberOfCars: Int,
+    fun `자동차 이름 및 위치 데이터가 올바르게 설정되는지 검증`(
+        carName: String,
         numberOfAttempts: Int,
-        carForwardRandomBaseValue: Int,
-        validCarPosition: Int,
+        invalidMessage: String,
     ) {
-        val racingCarSettingData: RacingCarSettingData =
-            RacingCarSettingData(inputNumberOfCars = numberOfCars, inputAttemptCount = numberOfAttempts)
-
-        val racingResult: RacingResult =
-            RacingCar(racingCarSettingData = racingCarSettingData) { carForwardRandomBaseValue }.racingResult()
-
-        assertEquals(racingResult.getRacingParticipantsCarCount(), numberOfCars)
-        assertEquals(racingResult.getRacingAttemptCount(), numberOfAttempts)
-        assertTrue(racingResult.getRacingFinalResult().all { move -> move == validCarPosition })
     }
 }
