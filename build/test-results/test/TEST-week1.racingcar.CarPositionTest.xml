@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="week1.racingcar.CarPositionTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2024-11-19T12:47:09" hostname="gimchangmin-ui-MacBookPro.local" time="0.01">
+  <properties/>
+  <testcase name="유효하지 않은 자동차 위치 생성 검증()" classname="week1.racingcar.CarPositionTest" time="0.009"/>
+  <testcase name="전진할 경우, 위치 증가 검증()" classname="week1.racingcar.CarPositionTest" time="0.0"/>
+  <system-out><![CDATA[]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>

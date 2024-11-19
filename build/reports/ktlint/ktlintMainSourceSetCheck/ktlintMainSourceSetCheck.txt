@@ -1,0 +1,4 @@
+[90m/Users/changmin/Desktop/kcm/kotlin-tdd/kotlin-racingcar/src/main/kotlin/week1/step2/[0mStringCalculator.kt[90m:[0m3[90m:24:[0m Unnecessary block ("{}") [90m(standard:no-empty-class-body)[0m
+
+Summary error count (descending) by rule:
+  standard:no-empty-class-body: 1
