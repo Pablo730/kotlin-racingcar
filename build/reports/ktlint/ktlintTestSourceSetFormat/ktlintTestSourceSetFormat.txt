@@ -1,6 +1,0 @@
-[90m/Users/changmin/Desktop/kcm/kotlin-tdd/kotlin-racingcar/src/test/kotlin/week1/step3/[0mRacingCarTest.kt[90m:[0m3[90m:1:[0m Unused import [90m(standard:no-unused-imports)[0m
-[90m/Users/changmin/Desktop/kcm/kotlin-tdd/kotlin-racingcar/src/test/kotlin/week1/step3/[0mRacingCarTest.kt[90m:[0m28[90m:1:[0m Unexpected blank line(s) before "}" [90m(standard:no-blank-line-before-rbrace)[0m
-
-Summary error count (descending) by rule:
-  standard:no-blank-line-before-rbrace: 1
-  standard:no-unused-imports: 1
