@@ -1,9 +1,10 @@
 package racingcar
 
 class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
-    private var startCheck: Boolean = false
-    private var winnerList = mutableListOf<String>()
-    private var maxPosition: Int = -1
+    private var startCheck = false
+    private val winnerList = mutableListOf<String>()
+    private var maxPosition = Int.MIN_VALUE
+    private val forwardAttemptResultList = mutableListOf<List<Car>>()
     init {
         require(cars.isNotEmpty()) { INVALID_RACING_CARS_MESSAGE }
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE }
@@ -12,25 +13,27 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
     fun start(carForwardRandomProvider: () -> Int) {
         require(!startCheck) { RACE_IS_ALREADY_OVER_MESSAGE }
         while (forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) {
-            forwardAttempt(carForwardRandomProvider())
+            forwardAttempt(carForwardRandomProvider)
         }
         startCheck = true
     }
 
-    private fun forwardAttempt(condition: Int) {
+    private fun forwardAttempt(carForwardRandomProvider: () -> Int) {
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { ALL_EXHAUSTED_FORWARD_ATTEMPT_MESSAGE }
-        cars.forEach { car -> car.forward(condition = condition) }
+        cars.forEach { car -> car.forward(condition = carForwardRandomProvider()) }
+        forwardAttemptResultList.add(cars.map { car -> Car(car.name, car.position) })
         forwardAttemptCount--
     }
 
     fun findWinners(): List<String> {
+        winnerList.clear()
         cars.forEach { car -> compareMaxPosition(car)}
         return winnerList
     }
 
     private fun compareMaxPosition(compareCar: Car) {
         if (compareCar.position > maxPosition) {
-            winnerList = mutableListOf<String>()
+            winnerList.clear()
             maxPosition = compareCar.position
             winnerList.add(compareCar.name)
             return
@@ -38,6 +41,10 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
         if (compareCar.position == maxPosition) {
             winnerList.add(compareCar.name)
         }
+    }
+
+    fun getForwardAttemptResultList (): MutableList<List<Car>> {
+        return forwardAttemptResultList
     }
 
     companion object {
