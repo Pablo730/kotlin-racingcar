@@ -26,4 +26,20 @@ class RacingTest {
             Racing(cars = listOf(Car("Pablo")), forwardAttemptCount = forwardAttemptCount)
         }
     }
+
+    @ValueSource(ints = [4, 5, 6, 7, 8, 9])
+    @ParameterizedTest
+    fun `레이싱에서 전진을 시도하면 모든 자동차들이 주어진 무작위 값이 4 이상이면 전진을 시행한다`(condition: Int) {
+        val racing = Racing(cars = listOf(Car("pablo"), Car("step")), 1)
+        racing.forwardAttempt(condition = condition)
+        racing.cars.forEach { car -> car.position shouldBe 1 }
+    }
+
+    @ValueSource(ints = [1, 2, 3])
+    @ParameterizedTest
+    fun `레이싱에서 전진을 시도하면 모든 자동차들이 주어진 무작위 값이 4 미만이면 정지한다`(condition: Int) {
+        val racing = Racing(cars = listOf(Car("pablo"), Car("step")), 1)
+        racing.forwardAttempt(condition = condition)
+        racing.cars.forEach { car -> car.position shouldBe 0 }
+    }
 }
