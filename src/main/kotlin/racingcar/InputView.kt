@@ -1,9 +1,5 @@
 package racingcar
 
-import racingcar.Car.Companion.CAR_NAME_LENGTH_MAX
-import racingcar.Car.Companion.CAR_NAME_LENGTH_MIN
-import racingcar.Car.Companion.INVALID_CAR_NAME_MESSAGE
-
 class InputView {
     private fun inputCarNames(): String {
         println("경주할 자동차 이름을 입력하세요(이름은 쉼표(,)를 기준으로 구분).")

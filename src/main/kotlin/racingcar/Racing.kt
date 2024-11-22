@@ -4,7 +4,8 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
     private var startCheck = false
     private val winnerList = mutableListOf<String>()
     private var maxPosition = Int.MIN_VALUE
-    private val forwardAttemptResultList = mutableListOf<List<Car>>()
+    private val forwardAttemptResultList = mutableListOf<ForwardAttemptResult>()
+
     init {
         require(cars.isNotEmpty()) { INVALID_RACING_CARS_MESSAGE }
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE }
@@ -21,7 +22,7 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
     private fun forwardAttempt(carForwardRandomProvider: () -> Int) {
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { ALL_EXHAUSTED_FORWARD_ATTEMPT_MESSAGE }
         cars.forEach { car -> car.forward(condition = carForwardRandomProvider()) }
-        forwardAttemptResultList.add(cars.map { car -> Car(car.name, car.position) })
+        forwardAttemptResultList.add(ForwardAttemptResult(cars.map { car -> Car(car.name, car.position) }))
         forwardAttemptCount--
     }
 
@@ -43,7 +44,7 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
         }
     }
 
-    fun getForwardAttemptResultList (): MutableList<List<Car>> {
+    fun getForwardAttemptResultList (): List<ForwardAttemptResult> {
         return forwardAttemptResultList
     }
 
