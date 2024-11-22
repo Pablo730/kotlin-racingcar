@@ -9,10 +9,10 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE }
     }
 
-    fun start(condition: Int) {
+    fun start(carForwardRandomProvider: () -> Int) {
         require(!startCheck) { RACE_IS_ALREADY_OVER_MESSAGE }
         while (forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) {
-            forwardAttempt(condition)
+            forwardAttempt(carForwardRandomProvider())
         }
         startCheck = true
     }

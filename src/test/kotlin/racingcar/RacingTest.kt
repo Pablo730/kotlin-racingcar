@@ -38,7 +38,7 @@ class RacingTest {
         val racing =
             Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = forwardAttemptCount)
 
-        racing.start(condition = condition)
+        racing.start(carForwardRandomProvider = { condition })
         racing.cars.forEach { car -> car.position shouldBe forwardAttemptCount }
     }
 
@@ -60,7 +60,7 @@ class RacingTest {
         val racing =
             Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = forwardAttemptCount)
 
-        racing.start(condition = condition)
+        racing.start(carForwardRandomProvider = { condition })
         racing.cars.forEach { car -> car.position shouldBe 0 }
     }
 
@@ -75,22 +75,23 @@ class RacingTest {
     @Test
     fun `경주가 끝난 이후 경주 재시작을 할 경우 예외가 발생한다`() {
         val racing = Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = 4)
-        racing.start(condition = 0)
+        racing.start(carForwardRandomProvider = { 0 })
         shouldThrowWithMessage<IllegalArgumentException>(message = RACE_IS_ALREADY_OVER_MESSAGE) {
-            racing.start(condition = 0) }
+            racing.start(carForwardRandomProvider = { 0 })
+        }
     }
 
     @Test
     fun `경주가 끝난 이후 우승자를 확인할 수 있다`() {
         val racing = Racing(cars = listOf(Car(name = "pablo")), forwardAttemptCount = 4)
-        racing.start(condition = 6)
+        racing.start(carForwardRandomProvider = { 5 })
         racing.findWinners().joinToString(", ") shouldBe "pablo"
     }
 
     @Test
     fun `우승자는 2명 이상 일 수 있다`() {
         val racing = Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = 4)
-        racing.start(condition = 6)
+        racing.start(carForwardRandomProvider = { 5 })
         racing.findWinners().joinToString(", ") shouldBe "pablo, step"
     }
 }
