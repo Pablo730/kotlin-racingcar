@@ -2,6 +2,8 @@ package racingcar
 
 class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
     private var startCheck: Boolean = false
+    private var winnerList = mutableListOf<String>()
+    private var maxPosition: Int = -1
     init {
         require(cars.isNotEmpty()) { INVALID_RACING_CARS_MESSAGE }
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE }
@@ -19,6 +21,23 @@ class Racing(val cars: List<Car>, private var forwardAttemptCount: Int){
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { ALL_EXHAUSTED_FORWARD_ATTEMPT_MESSAGE }
         cars.forEach { car -> car.forward(condition = condition) }
         forwardAttemptCount--
+    }
+
+    fun findWinners(): List<String> {
+        cars.forEach { car -> compareMaxPosition(car)}
+        return winnerList
+    }
+
+    private fun compareMaxPosition(compareCar: Car) {
+        if (compareCar.position > maxPosition) {
+            winnerList = mutableListOf<String>()
+            maxPosition = compareCar.position
+            winnerList.add(compareCar.name)
+            return
+        }
+        if (compareCar.position == maxPosition) {
+            winnerList.add(compareCar.name)
+        }
     }
 
     companion object {

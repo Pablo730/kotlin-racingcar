@@ -79,4 +79,18 @@ class RacingTest {
         shouldThrowWithMessage<IllegalArgumentException>(message = RACE_IS_ALREADY_OVER_MESSAGE) {
             racing.start(condition = 0) }
     }
+
+    @Test
+    fun `경주가 끝난 이후 우승자를 확인할 수 있다`() {
+        val racing = Racing(cars = listOf(Car(name = "pablo")), forwardAttemptCount = 4)
+        racing.start(condition = 6)
+        racing.findWinners().joinToString(", ") shouldBe "pablo"
+    }
+
+    @Test
+    fun `우승자는 2명 이상 일 수 있다`() {
+        val racing = Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = 4)
+        racing.start(condition = 6)
+        racing.findWinners().joinToString(", ") shouldBe "pablo, step"
+    }
 }
