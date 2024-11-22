@@ -5,10 +5,13 @@ import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.Arguments
+import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
 import racingcar.Racing.Companion.INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE
 import racingcar.Racing.Companion.INVALID_RACING_CARS_MESSAGE
 import java.lang.IllegalArgumentException
+import java.util.stream.Stream
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class RacingTest {
@@ -27,19 +30,44 @@ class RacingTest {
         }
     }
 
-    @ValueSource(ints = [4, 5, 6, 7, 8, 9])
+    @MethodSource("무작위 condition 4 이상 값, 시도 횟수 제공")
     @ParameterizedTest
-    fun `레이싱에서 전진을 시도하면 모든 자동차들이 주어진 무작위 값이 4 이상이면 전진을 시행한다`(condition: Int) {
-        val racing = Racing(cars = listOf(Car("pablo"), Car("step")), 1)
-        racing.forwardAttempt(condition = condition)
-        racing.cars.forEach { car -> car.position shouldBe 1 }
+    fun `레이싱을 시작하면 모든 자동차들이 무작위 값이 4 이상이면 전진을 주어진 횟수만큼 반복 시행한다`
+                (condition: Int, forwardAttemptCount: Int) {
+        val racing =
+            Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = forwardAttemptCount)
+
+        racing.start(condition = condition)
+        racing.cars.forEach { car -> car.position shouldBe forwardAttemptCount }
     }
 
-    @ValueSource(ints = [1, 2, 3])
+    fun `무작위 condition 4 이상 값, 시도 횟수 제공`(): Stream<Arguments> {
+        return Stream.of(
+            Arguments.of(4, 5),
+            Arguments.of(5, 1),
+            Arguments.of(6, 2),
+            Arguments.of(7, 6),
+            Arguments.of(8, 4),
+            Arguments.of(9, 3),
+        )
+    }
+
+    @MethodSource("무작위 condition 4 미만 값, 시도 횟수 제공")
     @ParameterizedTest
-    fun `레이싱에서 전진을 시도하면 모든 자동차들이 주어진 무작위 값이 4 미만이면 정지한다`(condition: Int) {
-        val racing = Racing(cars = listOf(Car("pablo"), Car("step")), 1)
-        racing.forwardAttempt(condition = condition)
+    fun `레이싱을 시작하면 모든 자동차들이 무작위 값이 4 미만이면 전진을 주어진 횟수 동안 계속 정지한다`
+                (condition: Int, forwardAttemptCount: Int) {
+        val racing =
+            Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = forwardAttemptCount)
+
+        racing.start(condition = condition)
         racing.cars.forEach { car -> car.position shouldBe 0 }
+    }
+
+    fun `무작위 condition 4 미만 값, 시도 횟수 제공`(): Stream<Arguments> {
+        return Stream.of(
+            Arguments.of(1, 5),
+            Arguments.of(2, 7),
+            Arguments.of(3, 2)
+        )
     }
 }
