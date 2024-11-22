@@ -37,4 +37,12 @@ class CarTest {
         car.forward(condition = condition)
         car.position shouldBe 3
     }
+
+    @ValueSource(ints = [1, 2, 3])
+    @ParameterizedTest
+    fun `자동차에 주어진 무작위 값이 4 미만이면 정지한다`(condition: Int) {
+        val car = Car(name = "Pablo", 2)
+        car.forward(condition = condition)
+        car.position shouldBe 2
+    }
 }
