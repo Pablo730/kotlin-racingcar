@@ -10,6 +10,7 @@ import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
 import racingcar.Racing.Companion.INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE
 import racingcar.Racing.Companion.INVALID_RACING_CARS_MESSAGE
+import racingcar.Racing.Companion.RACE_IS_ALREADY_OVER_MESSAGE
 import java.lang.IllegalArgumentException
 import java.util.stream.Stream
 
@@ -69,5 +70,13 @@ class RacingTest {
             Arguments.of(2, 7),
             Arguments.of(3, 2)
         )
+    }
+
+    @Test
+    fun `경주가 끝난 이후 경주 재시작을 할 경우 예외가 발생한다`() {
+        val racing = Racing(cars = listOf(Car(name = "pablo"), Car(name = "step")), forwardAttemptCount = 4)
+        racing.start(condition = 0)
+        shouldThrowWithMessage<IllegalArgumentException>(message = RACE_IS_ALREADY_OVER_MESSAGE) {
+            racing.start(condition = 0) }
     }
 }
