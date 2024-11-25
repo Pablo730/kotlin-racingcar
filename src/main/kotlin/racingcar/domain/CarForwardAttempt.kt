@@ -1,4 +1,4 @@
-package racingcar
+package racingcar.domain
 
 class CarForwardAttempt (private val cars: List<Car>) {
     init {

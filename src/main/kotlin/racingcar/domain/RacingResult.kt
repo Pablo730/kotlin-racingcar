@@ -1,4 +1,4 @@
-package racingcar
+package racingcar.domain
 
 data class RacingResult(val forwardAttemptResults: List<ForwardAttemptResult>) {
     init {

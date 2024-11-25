@@ -1,4 +1,4 @@
-package racingcar
+package racingcar.domain
 
 class Racing(val cars: List<Car>, private val forwardAttemptCount: Int) {
     private val carForwardAttempt: CarForwardAttempt = CarForwardAttempt(cars)
