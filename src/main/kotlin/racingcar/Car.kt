@@ -1,6 +1,6 @@
 package racingcar
 
-class Car(val name: String, var position: Int = DEFAULT_CAR_POSITION) {
+data class Car(val name: String, var position: Int = DEFAULT_CAR_POSITION) {
     init {
         require(name.length in CAR_NAME_LENGTH_MIN .. CAR_NAME_LENGTH_MAX) { INVALID_CAR_NAME_MESSAGE }
         require(name.isNotBlank()) { INVALID_CAR_NAME_MESSAGE }
