@@ -8,7 +8,7 @@ class Racing(val cars: List<Car>, private val forwardAttemptCount: Int) {
         require(forwardAttemptCount >= FORWARD_ATTEMPT_COUNT_MIN_VALUE) { INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE }
     }
 
-    fun start(carForwardRandomProvider: () -> Int): RacingResult {
+    fun start(carForwardRandomProvider: CarForwardRandomProvider): RacingResult {
         val forwardAttemptResults = mutableListOf<ForwardAttemptResult>()
 
         repeat(forwardAttemptCount) {
