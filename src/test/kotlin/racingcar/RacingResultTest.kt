@@ -2,6 +2,9 @@ package racingcar
 
 import io.kotest.matchers.shouldBe
 import org.junit.jupiter.api.Test
+import racingcar.domain.Car
+import racingcar.domain.Racing
+import racingcar.domain.RacingResult
 
 class RacingResultTest {
 

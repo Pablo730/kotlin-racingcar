@@ -8,8 +8,10 @@ import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.Arguments
 import org.junit.jupiter.params.provider.MethodSource
 import org.junit.jupiter.params.provider.ValueSource
-import racingcar.Racing.Companion.INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE
-import racingcar.Racing.Companion.INVALID_RACING_CARS_MESSAGE
+import racingcar.domain.Racing.Companion.INVALID_FORWARD_ATTEMPT_COUNT_MESSAGE
+import racingcar.domain.Racing.Companion.INVALID_RACING_CARS_MESSAGE
+import racingcar.domain.Car
+import racingcar.domain.Racing
 import java.lang.IllegalArgumentException
 import java.util.stream.Stream
 

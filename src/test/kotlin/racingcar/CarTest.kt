@@ -6,8 +6,9 @@ import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import racingcar.domain.Car
 import java.lang.IllegalArgumentException
-import racingcar.Car.Companion.INVALID_CAR_NAME_MESSAGE
+import racingcar.domain.Car.Companion.INVALID_CAR_NAME_MESSAGE
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class CarTest {
